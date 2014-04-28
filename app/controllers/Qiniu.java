@@ -35,7 +35,7 @@ public class Qiniu extends Controller {
         );
     }
 
-    //bucket, key
+    //key
     public static Result downloadToken() {
         Map<String,String[]> queryString = request().queryString();
         String key = queryString.get("key")[0];
@@ -52,6 +52,27 @@ public class Qiniu extends Controller {
             Json.toJson(resp)
         );
     }
+
+    //key
+    // public static Result delete() {
+    //     Map<String,String[]> queryString = request().queryString();
+    //     String key = queryString.get("key")[0];
+    //     // to do find, and check owner
+    //     // File = File.Find()
+    //     // check collection permission
+    //     //
+
+
+    //     String domain= Play.application().configuration().getString("qiniu.domain");
+    //     String downloadUrl = "http://"+ domain + "/" + key;
+    //     String downTokenUrl = QiniuToken.downloadToken(downloadUrl);
+    //     Map<String, String> resp = new HashMap<String, String>();
+    //     resp.put("url", downTokenUrl);
+    //     return ok(
+    //         Json.toJson(resp)
+    //     );
+    // }
+
 
     private static Form<File> upCallbackForm = Form.form(File.class);
     //bucket, key

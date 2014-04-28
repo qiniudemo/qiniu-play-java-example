@@ -9,6 +9,6 @@ import com.qiniu.api.config.Config;
 
 public class Application extends Controller {
     public static Result index() {
-        return ok(index.render("Qiniu Demo"));
+        return ok(index.render("Qiniu Demo."));
     }
 }
