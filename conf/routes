@@ -1,0 +1,13 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET	/			controllers.Application.index()
+
+GET	/uptoken		controllers.Qiniu.uploadToken()
+GET	/downtoken		controllers.Qiniu.downloadToken()
+POST	/callback		controllers.Qiniu.callback()
+
+# Map static resources from the /public folder to the /assets URL path
+GET	/assets/*file		controllers.Assets.at(path="/public", file)
