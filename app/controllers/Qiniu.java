@@ -21,12 +21,15 @@ import org.joda.time.LocalTime;
 
 import models.*;
 
+import com.qiniu.api.auth.digest.Mac;
+
 // server must authorize client before return token
 public class Qiniu extends Controller {
     private static String user= "test";
     public static Result uploadToken() {
         String bucket= Play.application().configuration().getString("qiniu.bucket");
-        String token = QiniuToken.uploadToken(bucket, user);
+        String callbackUrl = Play.application().configuration().getString("qiniu.callback_url");
+        String token = QiniuToken.uploadToken(bucket, user, callbackUrl);
         Logger.info(token);
         Map<String, String> resp = new HashMap<String, String>();
         resp.put("token", token);
@@ -54,24 +57,25 @@ public class Qiniu extends Controller {
     }
 
     //key
-    // public static Result delete() {
-    //     Map<String,String[]> queryString = request().queryString();
-    //     String key = queryString.get("key")[0];
-    //     // to do find, and check owner
-    //     // File = File.Find()
-    //     // check collection permission
-    //     //
+    public static Result delete() {
 
-
-    //     String domain= Play.application().configuration().getString("qiniu.domain");
-    //     String downloadUrl = "http://"+ domain + "/" + key;
-    //     String downTokenUrl = QiniuToken.downloadToken(downloadUrl);
-    //     Map<String, String> resp = new HashMap<String, String>();
-    //     resp.put("url", downTokenUrl);
-    //     return ok(
-    //         Json.toJson(resp)
-    //     );
-    // }
+        Map<String,String[]> queryString = request().queryString();
+        String bucket= Play.application().configuration().getString("qiniu.bucket");
+        String key = queryString.get("key")[0];
+        // to do find, and check owner
+        // File = File.Find()
+        // check collection permission
+        //
+        try {
+            QiniuToken.delete(bucket, key);
+        } catch(Exception e){
+            e.printStackTrace();
+            return badRequest(Json.toJson(null));
+        }
+        return ok(
+            Json.toJson(null)
+        );
+    }
 
 
     private static Form<File> upCallbackForm = Form.form(File.class);
