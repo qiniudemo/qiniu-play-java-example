@@ -52,9 +52,13 @@ public class Storage extends Controller {
         // this is demo, user get from query
         String user = queryString.get("user")[0];
 
-        // to do find, and check owner
-        // File = File.Find()
-        //
+        File f = File.find.byId(key);
+        if (!f.user.equals(user)) {
+            return badRequest(
+                util.Error.Forbiden.toJson()
+            );
+        }
+
         String downTokenUrl = downloadUrl(key);
         Map<String, String> resp = new HashMap<String, String>();
         resp.put("url", downTokenUrl);
