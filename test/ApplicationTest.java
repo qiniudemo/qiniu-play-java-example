@@ -35,10 +35,7 @@ public class ApplicationTest {
 
     @Test
     public void renderTemplate() {
-        Content html = views.html.index.render("Qiniu Demo.");
+        Content html = views.html.index.render();
         assertThat(contentType(html)).isEqualTo("text/html");
-        assertThat(contentAsString(html)).contains("Qiniu Demo.");
     }
-
-
 }
