@@ -23,7 +23,7 @@ public class File extends Model {
     @Required
     public String hash;
 
-    @Required
+    // @Required, but form has not the property
     public LocalTime timestamp;
 
     @Required
