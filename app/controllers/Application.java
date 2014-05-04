@@ -6,10 +6,10 @@ import java.util.Map;
 import java.util.HashMap;
 import views.html.*;
 import com.qiniu.api.config.Config;
+import java.io.File;
 
 public class Application extends Controller {
     public static Result index() {
-        return ok(index.render("Qiniu Demo."));
+        return ok(index.render());
     }
-    //todo upload demo, like jssdk.demo.qiniu.io, php example
 }

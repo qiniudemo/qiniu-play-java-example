@@ -134,6 +134,8 @@ public class Storage extends Controller {
         data.save();
         Map<String, String> resp = new HashMap<String, String>();
         resp.put("success", "true");
+        resp.put("key", data.key);
+        resp.put("hash", data.hash);
         return ok(
             Json.toJson(resp)
         );
