@@ -4,7 +4,7 @@ import com.qiniu.api.config.Config;
 import com.qiniu.api.auth.digest.Mac;
 import com.qiniu.api.net.CallRet;
 
-public class QiniuToken {
+public class Qiniu {
     public static String uploadToken(String bucket, String user, String callbackUrl){
         PutPolicy upPolicy = new PutPolicy(bucket);
         upPolicy.endUser = user;

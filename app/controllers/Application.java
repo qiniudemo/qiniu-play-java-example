@@ -11,4 +11,5 @@ public class Application extends Controller {
     public static Result index() {
         return ok(index.render("Qiniu Demo."));
     }
+    //todo upload demo, like jssdk.demo.qiniu.io, php example
 }

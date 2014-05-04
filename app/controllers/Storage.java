@@ -24,13 +24,19 @@ import models.*;
 import com.qiniu.api.auth.digest.Mac;
 
 // server must authorize client before return token
-public class Qiniu extends Controller {
+public class Storage extends Controller {
     private static String user= "test";
     public static Result uploadToken() {
         String bucket= Play.application().configuration().getString("qiniu.bucket");
         String callbackUrl = Play.application().configuration().getString("qiniu.callback_url");
-        String token = QiniuToken.uploadToken(bucket, user, callbackUrl);
-        Logger.info(token);
+
+        String token = util.Qiniu.uploadToken(bucket, user, callbackUrl);
+        if (token == null) {
+            return badRequest(
+                util.Error.Invalid.toJson()
+            );
+        }
+
         Map<String, String> resp = new HashMap<String, String>();
         resp.put("token", token);
         return ok(
@@ -48,7 +54,7 @@ public class Qiniu extends Controller {
         //
         String domain= Play.application().configuration().getString("qiniu.domain");
         String downloadUrl = "http://"+ domain + "/" + key;
-        String downTokenUrl = QiniuToken.downloadToken(downloadUrl);
+        String downTokenUrl = util.Qiniu.downloadToken(downloadUrl);
         Map<String, String> resp = new HashMap<String, String>();
         resp.put("url", downTokenUrl);
         return ok(
@@ -67,7 +73,7 @@ public class Qiniu extends Controller {
         // check collection permission
         //
         try {
-            QiniuToken.delete(bucket, key);
+            util.Qiniu.delete(bucket, key);
         } catch(Exception e){
             e.printStackTrace();
             return badRequest(Json.toJson(null));
