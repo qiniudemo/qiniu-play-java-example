@@ -23,10 +23,12 @@ import models.*;
 
 import com.qiniu.api.auth.digest.Mac;
 
-// server must authorize client before return token
 public class Storage extends Controller {
-    private static String user= "test";
     public static Result uploadToken() {
+        Map<String,String[]> queryString = request().queryString();
+        // this is demo, user get from query
+        String user = queryString.get("user")[0];
+
         String bucket= Play.application().configuration().getString("qiniu.bucket");
         String callbackUrl = Play.application().configuration().getString("qiniu.callback_url");
 
@@ -44,17 +46,16 @@ public class Storage extends Controller {
         );
     }
 
-    //key
     public static Result downloadToken() {
         Map<String,String[]> queryString = request().queryString();
         String key = queryString.get("key")[0];
+        // this is demo, user get from query
+        String user = queryString.get("user")[0];
+
         // to do find, and check owner
         // File = File.Find()
-        // check collection permission
         //
-        String domain= Play.application().configuration().getString("qiniu.domain");
-        String downloadUrl = "http://"+ domain + "/" + key;
-        String downTokenUrl = util.Qiniu.downloadToken(downloadUrl);
+        String downTokenUrl = downloadUrl(key);
         Map<String, String> resp = new HashMap<String, String>();
         resp.put("url", downTokenUrl);
         return ok(
@@ -62,7 +63,19 @@ public class Storage extends Controller {
         );
     }
 
-    //key
+    private static String downloadUrl(String key){
+        String domain= Play.application().configuration().getString("qiniu.domain");
+        String downloadUrl = "http://"+ domain + "/" + key;
+        return util.Qiniu.downloadToken(downloadUrl);
+    }
+
+    public static Result downloadTokens(FileCollection col){
+        // get files from collection
+        // iterate files to get tokens
+        // return download token url array
+        return null;
+    }
+
     public static Result delete() {
 
         Map<String,String[]> queryString = request().queryString();
@@ -70,8 +83,7 @@ public class Storage extends Controller {
         String key = queryString.get("key")[0];
         // to do find, and check owner
         // File = File.Find()
-        // check collection permission
-        //
+
         try {
             util.Qiniu.delete(bucket, key);
         } catch(Exception e){
@@ -99,7 +111,6 @@ public class Storage extends Controller {
         data.save();
         Map<String, String> resp = new HashMap<String, String>();
         resp.put("success", "true");
-        resp.put("user", user);
         return ok(
             Json.toJson(resp)
         );
