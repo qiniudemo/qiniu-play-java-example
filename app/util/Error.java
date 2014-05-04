@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 public enum Error {
-    Forbiden(1, "forbiden", "you have not the permission"),
+    Forbidden(1, "forbidden", "you have not the permission"),
     Invalid(2, "invalid args","the args are invalid"),
     NetworkError(3, "network error", "network error");
 

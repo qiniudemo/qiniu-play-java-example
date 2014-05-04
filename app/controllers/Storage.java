@@ -65,7 +65,7 @@ public class Storage extends Controller {
         File f = File.find.byId(key);
         if (!f.user.equals(user)) {
             return forbidden(
-                util.Error.Forbiden.toJson()
+                util.Error.Forbidden.toJson()
             );
         }
 
