@@ -11,7 +11,8 @@ import play.db.ebean.*;
 import javax.persistence.*;
 
 // 文件集合，集合属性，集合中的文件列表由此处管理，便于修改快速集合属性，获取列表，进行授权
-class FileCollection {
+@Entity
+public class FileCollection {
     @Required
     @Id
     public Long id;
@@ -23,5 +24,5 @@ class FileCollection {
     @Required
     public String name;
 
-    public String[] properties;
+    // public String[] properties;
 }
