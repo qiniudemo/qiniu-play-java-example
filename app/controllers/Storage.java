@@ -27,6 +27,11 @@ public class Storage extends Controller {
     public static Result uploadToken() {
         Map<String,String[]> queryString = request().queryString();
         // this is demo, user get from query
+        if (queryString.get("user") == null) {
+            return badRequest(
+                util.Error.Invalid.toJson()
+            );
+        }
         String user = queryString.get("user")[0];
 
         String bucket= Play.application().configuration().getString("qiniu.bucket");
@@ -48,13 +53,18 @@ public class Storage extends Controller {
 
     public static Result downloadToken() {
         Map<String,String[]> queryString = request().queryString();
+        if (queryString.get("key") == null || queryString.get("user") == null) {
+            return badRequest(
+                util.Error.Invalid.toJson()
+            );
+        }
         String key = queryString.get("key")[0];
         // this is demo, user get from query
         String user = queryString.get("user")[0];
 
         File f = File.find.byId(key);
         if (!f.user.equals(user)) {
-            return badRequest(
+            return forbidden(
                 util.Error.Forbiden.toJson()
             );
         }
@@ -103,6 +113,7 @@ public class Storage extends Controller {
     private static Form<File> upCallbackForm = Form.form(File.class);
     //bucket, key
     public static Result callback() {
+        Logger.info("callbacking");
         Form<File> boundCallback = upCallbackForm.bindFromRequest();
         if (boundCallback.hasErrors()) {
             return badRequest();
@@ -110,7 +121,7 @@ public class Storage extends Controller {
 
         File data = boundCallback.get();
 
-        Logger.info("callback done"+ data.user);
+        Logger.info("callback done "+ data.user);
         data.timestamp = LocalTime.now();
         data.save();
         Map<String, String> resp = new HashMap<String, String>();
