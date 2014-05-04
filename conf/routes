@@ -3,11 +3,11 @@
 # ~~~~
 
 # Home page
-GET	/			controllers.Application.index()
+GET	    /   			controllers.Application.index()
 
-GET	/uptoken		controllers.Qiniu.uploadToken()
-GET	/downtoken		controllers.Qiniu.downloadToken()
-POST	/callback		controllers.Qiniu.callback()
+GET	    /uptoken		controllers.Storage.uploadToken()
+GET	    /downtoken		controllers.Storage.downloadToken()
+POST	/callback		controllers.Storage.callback()
 
 # Map static resources from the /public folder to the /assets URL path
-GET	/assets/*file		controllers.Assets.at(path="/public", file)
+GET	    /assets/*file		controllers.Assets.at(path="/public", file)
