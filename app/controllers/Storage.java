@@ -91,21 +91,29 @@ public class Storage extends Controller {
     }
 
     public static Result delete() {
-
         Map<String,String[]> queryString = request().queryString();
         String bucket= Play.application().configuration().getString("qiniu.bucket");
+        if (queryString.get("key") == null || queryString.get("user") == null) {
+            return badRequest(util.Error.Invalid.toJson());
+        }
         String key = queryString.get("key")[0];
-        // to do find, and check owner
-        // File = File.Find()
+        String user = queryString.get("user")[0];
+
+        File f = File.find.byId(key);
+        if (!f.user.equals(user)) {
+            return forbidden(
+                util.Error.Forbidden.toJson()
+            );
+        }
 
         try {
             util.Qiniu.delete(bucket, key);
         } catch(Exception e){
             e.printStackTrace();
-            return badRequest(Json.toJson(null));
+            return badRequest(util.Error.Invalid.toJson());
         }
         return ok(
-            Json.toJson(null)
+            Json.toJson("ok")
         );
     }
 
