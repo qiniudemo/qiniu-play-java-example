@@ -136,6 +136,7 @@ public class Storage extends Controller {
         resp.put("success", "true");
         resp.put("key", data.key);
         resp.put("hash", data.hash);
+        resp.put("url", downloadUrl(data.key));
         return ok(
             Json.toJson(resp)
         );
