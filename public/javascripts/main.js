@@ -16,14 +16,9 @@ var uploader = Qiniu.uploader({
     domain: 'http://shun.qiniudn.com/',
     // unique_names: true,
     // save_key: true,
-    // x_vars: {
-    //     'id': '1234',
-    //     'time': function(up, file) {
-    //         var time = (new Date()).getTime();
-    //         // do something with 'time'
-    //         return time;
-    //     },
-    // },
+    x_vars: {
+        'collection': 'test'
+    },
     auto_start: true,
     init: {
         'FilesAdded': function(up, files) {
@@ -215,7 +210,7 @@ $(function() {
         var newUrl = Qiniu.pipeline(fopArr, key);
 
         var newImg = new Image();
-        img.attr('src', 'loading.gif');
+        img.attr('src', 'assets/images/loading.gif');
         newImg.onload = function() {
             img.attr('src', newUrl);
             img.parent('a').attr('href', newUrl);
