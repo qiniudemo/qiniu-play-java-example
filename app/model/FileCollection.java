@@ -23,6 +23,4 @@ public class FileCollection {
 
     @Required
     public String name;
-
-    // public String[] properties;
 }

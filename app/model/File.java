@@ -44,7 +44,4 @@ public class File extends Model {
     public static Finder<String,File> find = new Finder<String,File>(
         String.class, File.class
     );
-
-    // public static Finder<String, String, File> findByuser;
-    // public static Finder<String, String, String, File> findByCollection;
 }
