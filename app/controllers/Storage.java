@@ -129,7 +129,7 @@ public class Storage extends Controller {
 
         File data = boundCallback.get();
 
-        Logger.info("callback done "+ data.user);
+        Logger.info("callback done "+ data.user + " " + data.collection);
         data.timestamp = LocalTime.now();
         data.save();
         Map<String, String> resp = new HashMap<String, String>();
