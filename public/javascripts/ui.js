@@ -191,8 +191,10 @@ FileProgress.prototype.setComplete = function(up, info) {
 
     var res = $.parseJSON(info);
     var domain = up.getOption('domain');
-    var url = domain + encodeURI(res.key);
-    var link = domain + res.key;
+    // var url = domain + encodeURI(res.key);
+    var url = res.url;
+    // var link = domain + res.key+"?" + res.token;
+    var link = res.url;
     var str = "<div><strong>Link:</strong><a href=" + url + " target='_blank' > " + link + "</a></div>" +
         "<div class=hash><strong>Hash:</strong>" + res.hash + "</div>";
 
