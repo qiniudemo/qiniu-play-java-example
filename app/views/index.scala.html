@@ -1,3 +1,4 @@
+@(domain: String)
 <!doctype html>
 <html lang="en">
 <head>
@@ -21,6 +22,9 @@
 				View Source on Github
 			</a>
 		</h1>
+        <input type="hidden" id="domain" value="http://@domain">
+        <input type="hidden" id="uptoken_url" value="/uptoken?user=test">
+        <input type="hidden" id="downtoken_url" value="/downtoken?user=test">
 		<ul class="tip col-md-12 text-mute">
 			<li>
 				<small>
@@ -134,7 +138,7 @@
           <div class="modal-footer">
             <span class="pull-left">本示例仅演示了简单的图片处理效果，了解更多请点击</span>
 
-            <a href="https://github.com/SunLn/qiniu-js-sdk" target="_blank" class="pull-left">本SDK文档</a>
+            <a href="https://github.com/qiniupd/qiniu-js-sdk" target="_blank" class="pull-left">本SDK文档</a>
             <span class="pull-left">或</span>
 
             <a href="http://developer.qiniu.com/docs/v6/api/reference/fop/image/" target="_blank" class="pull-left">七牛官方文档</a>
