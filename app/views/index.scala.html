@@ -1,3 +1,4 @@
+@(domain: String)
 <!doctype html>
 <html lang="en">
 <head>
@@ -21,7 +22,7 @@
 				View Source on Github
 			</a>
 		</h1>
-        <input type="hidden" id="domain" value="http://@play.Play.application().configuration().getString("qiniu.domain")">
+        <input type="hidden" id="domain" value="http://@domain">
         <input type="hidden" id="uptoken_url" value="/uptoken?user=test">
         <input type="hidden" id="downtoken_url" value="/downtoken?user=test">
 		<ul class="tip col-md-12 text-mute">

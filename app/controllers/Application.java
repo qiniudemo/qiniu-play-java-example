@@ -10,6 +10,6 @@ import java.io.File;
 
 public class Application extends Controller {
     public static Result index() {
-        return ok(index.render());
+        return ok(index.render(Play.application().configuration().getString("qiniu.domain")));
     }
 }

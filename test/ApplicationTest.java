@@ -35,7 +35,7 @@ public class ApplicationTest {
 
     @Test
     public void renderTemplate() {
-        Content html = views.html.index.render();
+        Content html = views.html.index.render("domain");
         assertThat(contentType(html)).isEqualTo("text/html");
     }
 }
