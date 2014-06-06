@@ -9,3 +9,5 @@ qiniu-play-java-example
 * uptoken签发API，见util包里Qiniu 的uploadToken
 * downloadtoken 签发，见util包里Qiniu的downloadToken
 * 整合了js sdk，可以直接看到上传下载及image操作的效果
+* play 里用了java sdk, 文档详情见 http://developer.qiniu.com/docs/v6/sdk/java-sdk.html
+* js sdk 详情见 http://developer.qiniu.com/docs/v6/sdk/javascript-sdk.html
